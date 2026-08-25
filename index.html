@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعنا الخاص ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1a0813 0%, #320d21 50%, #1a0813 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* القلوب المتحركة في الخلفية */
+        .heart-bg {
+            position: fixed;
+            top: -10vh;
+            color: rgba(255, 77, 109, 0.35);
+            font-size: 1.5rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* شاشة كلمة السر */
+        .pass-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 5, 10, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            transition: all 0.6s ease;
+        }
+
+        .pass-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .pass-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff4d6d;
+        }
+
+        .pass-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .pass-btn {
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .pass-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* كارت المحتوى الرئيسي */
+        .card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            padding: 30px 20px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 77, 109, 0.2);
+            position: relative;
+            z-index: 2;
+            display: none;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* إطار الصورة */
+        .img-container {
+            width: 210px;
+            height: 210px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(45deg, #ff4d6d, #ffb3c1);
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #ff4d6d;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.5);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        /* تنسيق الكلمة البارزة والجملة الختامية */
+        .highlight-text {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ff4d6d;
+            display: block;
+            margin: 15px 0;
+            text-shadow: 0 0 18px rgba(255, 77, 109, 0.7);
+        }
+
+        .love-msg {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff0f3;
+            margin-top: 20px;
+            line-height: 1.8;
+            background: rgba(255, 77, 109, 0.12);
+            padding: 12px 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 109, 0.25);
+        }
+
+        /* شبكة العداد */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .timer-box {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 10px 4px;
+        }
+
+        .timer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff0f3;
+            display: block;
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            color: #ffb3c1;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* الفيديو / مشغل الأغنية */
+        .video-container {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin-top: 15px;
+            aspect-ratio: 16/9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة إدخال كلمة السر -->
+    <div class="pass-overlay" id="passOverlay">
+        <div class="pass-card">
+            <h2>🔒 كلمة السر</h2>
+            <p style="font-size: 0.9rem; color: #ffb3c1; margin-bottom: 15px;">اكتبي كلمة السر لتفتحي المفاجأة ❤️</p>
+            <input type="password" id="passInput" class="pass-input" placeholder="اكتبي كلمة السر هنا...">
+            <button class="pass-btn" onclick="checkPassword()">دخول ✨</button>
+            <p class="error-msg" id="errorMsg">كلمة السر غير صحيحة، حاولي تاني! ❤️</p>
+        </div>
+    </div>
+
+    <!-- الكارت الرئيسي -->
+    <div class="card" id="mainCard">
+        <div class="img-container">
+            <img src="IMG_0184.jpeg" alt="صورتنا سوا">
+        </div>
+
+        <h1>بحبككك قد الكووون ❤️</h1>
+
+        <!-- العداد -->
+        <div class="timer-grid">
+            <div class="timer-box">
+                <span class="timer-value" id="days">0</span>
+                <span class="timer-label">يوم</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="hours">0</span>
+                <span class="timer-label">ساعة</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="minutes">0</span>
+                <span class="timer-label">دقيقة</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="seconds">0</span>
+                <span class="timer-label">ثانية</span>
+            </div>
+        </div>
+
+        <!-- مشغل الفيديو / الأغنية -->
+        <div class="video-container">
+            <iframe id="ytPlayer" src="https://www.youtube.com/embed/fbK2ySlxAW4?enablejsapi=1" title="Elissa - Maktooba Leek" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <!-- الجملة الختامية والكلمة العريضة -->
+        <span class="highlight-text">بعشقكك ❤️😍</span>
+        <div class="love-msg">
+            ربنا يخليكي ليا ي روح قلبي 💍😍
+        </div>
+    </div>
+
+    <script>
+        // التحقق من كلمة السر
+        function checkPassword() {
+            const input = document.getElementById('passInput').value;
+            const overlay = document.getElementById('passOverlay');
+            const mainCard = document.getElementById('mainCard');
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (input === 'بحبككك') {
+                overlay.style.opacity = '0';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    mainCard.style.display = 'block';
+                }, 600);
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // دعم الضغط على زر Enter من لوحة المفاتيح
+        document.getElementById('passInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        // العداد ينتهي عند 3/8/2026
+        const startDate = new Date('2026-08-03T00:00:00');
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            if (diff < 0) {
+                document.getElementById('days').innerText = '0';
+                document.getElementById('hours').innerText = '0';
+                document.getElementById('minutes').innerText = '0';
+                document.getElementById('seconds').innerText = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // خلفية القلوب
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+
+        setInterval(createHeart, 450);
+    </script>
+</body>
+</html>
